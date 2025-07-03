@@ -1,0 +1,89 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Dark Background & Modern Font */
+body {
+  background-color: #0d0d0d;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Centering Wrapper */
+.container {
+  text-align: center;
+}
+
+/* One-time Animated Logo */
+.animated-text {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  animation: fadeInSlide 2s ease-out forwards;
+  opacity: 0;
+}
+
+/* Fade In + Slide */
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enter Button Styling */
+.enter-button {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 15px 35px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 50px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.enter-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+  z-index: 0;
+}
+
+.enter-button:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.enter-button:hover {
+  color: #0d0d0d;
+  z-index: 1;
+}
+
+.enter-button span {
+  position: relative;
+  z-index: 2;
+}
