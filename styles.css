@@ -87,3 +87,23 @@ body {
   position: relative;
   z-index: 2;
 }
+
+.social-links {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+}
+
+.social-icon {
+  color: white;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #888;
+  transform: scale(1.2);
+}
