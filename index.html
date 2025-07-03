@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +11,18 @@
 <body onload="window.scrollTo(0, 0)">
     <img src="KXLOGO_Animated.svg" alt="Kill Xtra Logo" class="logo" fill="white">
 
+    <div class="enter-button-container">
+        <a href="#" class="enter-button">ENTER NOW</a>
+    </div>
+
     <main class="music-grid">
         <div class="release">
             <a href="https://songwhip.com/kill-xtra" target="_blank">
                 <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F683447--43F47171-77DB-40C2-822B22809EEEA496--0--10038225--Kw3coverFINALJPG.jpg?fm=jpg&q=75&w=800&s=cf3cc999c2de8ce46fa02a544e2c4144" alt="KW3">
                 <div class="overlay"><h3>OUT NOW...</h3></div>
             </a>
-        </div>       
+        </div>
+       
 
     </main>
 
@@ -29,17 +33,6 @@
         <a href="https://open.spotify.com/artist/2PSOOyjBIytlAeW0ScmDrn?si=6YSheIb5TkeEA86anR1EzA" target="_blank">Spotify</a> |
         <a href="https://www.youtube.com/channel/UC4dP-lITmcTeYL0vqZJmvrQ" target="_blank">YouTube</a>
     </footer>
-
-    <script>
-        const introVideo = document.getElementById('intro-video');
-        const overlay = document.getElementById('intro-overlay');
-        if (introVideo && overlay) { // Add a check to ensure elements exist
-            introVideo.onended = function () {
-                overlay.classList.add('fade-out');
-                this.pause();
-                this.currentTime = this.duration;
-            };
-        }
-    </script>
+    
 </body>
 </html>
