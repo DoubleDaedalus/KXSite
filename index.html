@@ -40,20 +40,25 @@
             const hoverSound = document.getElementById('hover-sound');
             let audioUnlocked = false;
     
-            // Play the looping sound when the mouse enters
+            // Play sound when mouse enters the button area
             enterButton.addEventListener('mouseenter', () => {
+                // Only play if the audio has been unlocked by a click
                 if (audioUnlocked) {
                     hoverSound.play();
                 }
             });
-            
-            // --- The mouseleave event listener has been removed ---
     
-            // Unlock the audio on the first click
+            // Stop and reset the sound when mouse leaves
+            enterButton.addEventListener('mouseleave', () => {
+                hoverSound.pause();
+                hoverSound.currentTime = 0;
+            });
+    
+            // Unlock the audio on the very first click of the enter button
             enterButton.addEventListener('click', () => {
                 if (!audioUnlocked) {
                     hoverSound.play();
-                    // We no longer need to pause it here
+                    hoverSound.pause();
                     audioUnlocked = true;
                 }
             });
