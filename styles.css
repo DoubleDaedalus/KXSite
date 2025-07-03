@@ -19,7 +19,13 @@ body {
 /* Centering Wrapper */
 .container {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
+
 
 /* One-time Animated Logo */
 .animated-text {
@@ -100,7 +106,7 @@ body {
 
 .social-icon {
   color: #ffffff;
-  font-size: 2rem; /* Bigger icons */
+  font-size: 2.2rem; /* Bigger icons */
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -111,7 +117,7 @@ body {
 
 /* Larger logo with spacing */
 .animated-logo {
-  width: 300px; /* Increase size */
+  width: 400px; /* Increase size */
   max-width: 80%;
   margin-bottom: 60px; /* Space between logo and button */
   animation: fadeInSlide 2s ease-out forwards;
