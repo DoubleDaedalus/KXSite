@@ -41,6 +41,7 @@ body {
     margin-bottom: 60px;
     animation: fadeInSlide 2s ease-out forwards;
     opacity: 0;
+    fill: #ffffff
 }
 
 /* Fade In Animation */
