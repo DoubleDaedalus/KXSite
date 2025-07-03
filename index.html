@@ -14,7 +14,7 @@
         <source src="static.mp4" type="video/mp4">
     </video>
     
-    <audio id="hover-sound" preload="auto">
+    <audio id="hover-sound" preload="auto" loop>
         <source src="KXSiteMusic.mp3" type="audio/mpeg">
     </audio>
 
@@ -40,25 +40,20 @@
             const hoverSound = document.getElementById('hover-sound');
             let audioUnlocked = false;
     
-            // Play sound when mouse enters the button area
+            // Play the looping sound when the mouse enters
             enterButton.addEventListener('mouseenter', () => {
-                // Only play if the audio has been unlocked by a click
                 if (audioUnlocked) {
                     hoverSound.play();
                 }
             });
+            
+            // --- The mouseleave event listener has been removed ---
     
-            // Stop and reset the sound when mouse leaves
-            enterButton.addEventListener('mouseleave', () => {
-                hoverSound.pause();
-                hoverSound.currentTime = 0;
-            });
-    
-            // Unlock the audio on the very first click of the enter button
+            // Unlock the audio on the first click
             enterButton.addEventListener('click', () => {
                 if (!audioUnlocked) {
                     hoverSound.play();
-                    hoverSound.pause();
+                    // We no longer need to pause it here
                     audioUnlocked = true;
                 }
             });
