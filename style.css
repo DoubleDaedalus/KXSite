@@ -198,57 +198,6 @@ body {
     font-weight: 300;
 }
 
-.border-text {
-    pointer-events: none;
-    z-index: 10000;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    font-size: 2vh;
-    color: transparent;
-    -webkit-text-stroke: 1px #fff;
-}
-
-.border-text .top,
-.border-text .bottom {
-    position: fixed;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.border-text .top {
-    top: 0;
-    left: 0;
-}
-
-.border-text .bottom {
-    bottom: 0;
-    left: 0;
-}
-
-.border-text .left,
-.border-text .right {
-    position: fixed;
-    height: 100vh;
-    writing-mode: vertical-rl;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.border-text .left {
-    top: 0;
-    left: 0;
-    transform: rotate(180deg);
-}
-
-.border-text .right {
-    top: 0;
-    right: 0;
-    transform: rotate(0deg);
-}
-
 footer {
     text-align: center;
     padding: 1rem;
