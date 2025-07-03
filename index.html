@@ -1,1 +1,417 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LVIHD</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: rgb(27, 27, 27);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: blur(10px);
+    }
+
+    #intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    #intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #intro-video {
+      width: 300px;
+      max-width: 80%;
+    }
+
+    .logo {
+      width: 150px;
+      position: fixed;
+      top: 1.5rem;
+      left: 4rem;
+      z-index: 1000;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 250px);
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 4rem 2rem 4rem;
+    }
+
+    @media (max-width: 768px) {
+  .music-grid {
+    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+    @media (max-width: 600px) {
+      .logo {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    .release {
+      position: relative;
+      width: 250px;
+      border-radius: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .release img {
+      width: 100%;
+      display: block;
+      border-radius: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .release .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .release:hover img {
+      opacity: 0.3;
+    }
+
+    .release:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay h3 {
+      color: white;
+      font-size: 0.75rem;
+      text-align: center;
+      letter-spacing: 1px;
+      padding: 0 0.5rem;
+      font-weight: 300;
+    }
+
+
+    .border-text {
+      pointer-events: none;
+      z-index: 10000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 2vh;
+      color: transparent;
+      -webkit-text-stroke: 1px #fff;
+    }
+
+    .border-text .top,
+    .border-text .bottom {
+      position: fixed;
+      width: 100%;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .border-text .top {
+      top: 0;
+      left: 0;
+    }
+
+    .border-text .bottom {
+      bottom: 0;
+      left: 0;
+    }
+
+    .border-text .left,
+    .border-text .right {
+      position: fixed;
+      height: 100vh;
+      writing-mode: vertical-rl;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .border-text .left {
+      top: 0;
+      left: 0;
+      transform: rotate(180deg);
+    }
+
+    .border-text .right {
+      top: 0;
+      right: 0;
+      transform: rotate(0deg);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .links a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body onload="window.scrollTo(0, 0)">
+  <!-- Background Video 
+  <video id="background-video" autoplay muted loop playsinline>
+    <source src="filmoverlay.mp4" type="video/mp4">
+  </video>  -->
+
+
+  <!-- Black Fade Overlay 
+  <div id="black-fade-overlay"></div> -->
+
+  <!-- Intro Overlay -->
+  <div id="intro-overlay">
+    <video id="intro-video" autoplay muted playsinline>
+      <source src="LVIHD.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- JavaScript for Intro Overlay -->
+<script>
+  const introVideo = document.getElementById('intro-video');
+  const overlay = document.getElementById('intro-overlay');
+  const isInstagram = navigator.userAgent.includes("Instagram");
+
+  if (isInstagram) {
+    introVideo.removeAttribute("autoplay");
+    introVideo.style.display = "none";
+    overlay.classList.add("fade-out");
+  } else {
+    introVideo.onended = function () {
+      overlay.classList.add("fade-out");
+      this.pause();
+      this.currentTime = this.duration;
+    };
+  }
+</script>
+
+  <!-- Border Text -->
+  <div class="border-text">
+    <div class="left">IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI •</div>
+    <div class="right">IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI • IT'S NOT THAT SIMPLE LEVI •</div>
+  </div>
+
+  <!-- Logo -->
+  <img src="logo.png" alt="LVIHD Logo" class="logo">
+
+  <main class="music-grid">
+
+    <div class="release">
+<!--      <a href="https://distrokid.com/hyperfollow/lvihd/" target="_blank"> -->
+        <img src="filler.jpg" alt="ICWIMI">
+        <div class="overlay"><h3>COMING SOON...</h3></div>
+      </a>
+    </div>
+
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/cousins-freestyle" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--C13CC0A3-51FC-462C-AB28B5CC4807397F--0--18602796--IMG1531.PNG?fm=jpg&q=75&w=800&s=8e3eba1c0c6dcf08f8637f5e0e7ec1a1" alt="COUSINS FREESTYLE">
+        <div class="overlay"><h3>COUSINS FREESTYLE</h3></div>
+      </a>
+    </div>
+
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/sumhertime" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--B1FA6031-7136-4FE6-81E8F32D1B479B65--0--13424760--SUMHERTIMECOVERv1.png?fm=jpg&q=75&w=800&s=41c8f7405cfe1d2fc753bc0b77af90e6" alt="SUMHERTIME">
+        <div class="overlay"><h3>SUMHERTIME</h3></div>
+      </a>
+    </div>
+
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/midnight-memoirs" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--DB332EA3-ADDD-41D7-BADA659B8C55DE69--0--2478488--IMG4788.PNG?fm=jpg&q=75&w=800&s=e6c46e84937341e54f9aa2775b55851e" alt="MIDNIGHT MEMOIRS">
+        <div class="overlay"><h3>MIDNIGHT MEMOIRS</h3></div>
+      </a>
+    </div>
+
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/lifeline" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--AABD4BF5-BAAD-42CB-98B72063BF22E08C--0--8627246--Lifelinev3.png?fm=jpg&q=75&w=800&s=496a20a12fb355de5a2512bf3dacb646" alt="LIFELINE">
+        <div class="overlay"><h3>LIFELINE</h3></div>
+      </a>
+    </div>
+
+
+
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/fallback" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--335E2A73-2B3F-4D6B-90A219F33AC189C9--0--10478756--IMG72542.PNG?fm=jpg&q=75&w=800&s=7a4f7328a27e2f33fa9e098b81ba929d" alt="FALLBACK">
+        <div class="overlay">
+          <h3>FALLBACK</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/forecast" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--A9B6E36B-8694-4F6F-BD76B76DF9B3AD0F--1634361026276--3000x3000.png?fm=jpg&q=75&w=800&s=5607f848fb13c27f3a5e809b110d0280" alt="FORECAST">
+        <div class="overlay">
+          <h3>FORECAST</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/assurance" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--22420ACB-6E45-4A9E-A3AB3D6CAC7C493F--1613012533855--IMG1938.PNG?fm=jpg&q=75&w=800&s=4652eaf3048c9be285282c6383bcda95" alt="ASSURANCE">
+        <div class="overlay">
+          <h3>ASSURANCE</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/muvelo--baila" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--D871440C-3CCE-48FB-915F0B39702717F7--1605922901263--IMG0874.PNG?fm=jpg&q=75&w=800&s=10a2ee5fb1ebd8bd617ef39801e3b8c2" alt="MUÉVELO / BAILA">
+        <div class="overlay">
+          <h3>MUÉVELO / BAILA</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/money-moving" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--9603DD64-F40B-44A4-8D0ACE87385F1021--1605591107868--IMG0763.PNG?fm=jpg&q=75&w=800&s=849cb5405dfebffca4f7ac1310cc03b0" alt="MONEY MOVIN'">
+        <div class="overlay">
+          <h3>MONEY MOVIN'</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/mind-my-business-freestyle" target="_blank">
+        <img src="https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F2129111--34C910E9-DA55-4A98-BEC98028B40B8085--1603826716469--IMG1266.PNG?fm=jpg&q=75&w=800&s=7b908fadbbe50dcc2c51294ad7660ea6" alt="MIND MY BUSINESS FREESTYLE">
+        <div class="overlay">
+          <h3>MIND MY BUSINESS FREESTYLE</h3>
+        </div>
+      </a>
+    </div>
+  
+    <div class="release">
+      <a href="https://distrokid.com/hyperfollow/lvihd/fuego" target="_blank">
+        <img src="fuego.jpg" alt="FUEGO">
+        <div class="overlay">
+          <h3>FUEGO</h3>
+        </div>
+      </a>
+    </div>
+
+    <audio id="minimal-player">
+      <source src="aaliyah.mp3" type="audio/mp3">
+    </audio>
+    
+    <button id="playPauseBtn" onclick="togglePlay()" style="
+      position: fixed;
+      bottom: 2rem;
+      right: 4rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #777;
+      cursor: pointer;
+      z-index: 1000;
+    ">
+      ▶
+    </button>
+    
+    <script>
+      const audio = document.getElementById('minimal-player');
+      const btn = document.getElementById('playPauseBtn');
+    
+      function togglePlay() {
+        if (audio.paused) {
+          audio.play();
+          btn.innerText = '❚❚';
+        } else {
+          audio.pause();
+          btn.innerText = '▶';
+        }
+      }
+    </script>
+    
+
+  </main>
+
+  <footer class="links">
+    <a href="https://music.apple.com/us/artist/lvihd/1517974145" target="_blank">Apple Music</a> |
+    <a href="https://instagram.com/lvihd" target="_blank">Instagram</a> |
+    <a href="https://soundcloud.com/user-844617156-67607178?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">SoundCloud</a> |
+    <a href="https://open.spotify.com/artist/2PSOOyjBIytlAeW0ScmDrn?si=6YSheIb5TkeEA86anR1EzA" target="_blank">Spotify</a> |
+    <a href="https://www.youtube.com/channel/UC4dP-lITmcTeYL0vqZJmvrQ" target="_blank">YouTube</a>
+  </footer>
+
+  <script>
+    const introVideo = document.getElementById('intro-video');
+    const overlay = document.getElementById('intro-overlay');
+    introVideo.onended = function () {
+      overlay.classList.add('fade-out');
+      this.pause();
+      this.currentTime = this.duration;
+    };
+  </script>
+</body>
+</html>
