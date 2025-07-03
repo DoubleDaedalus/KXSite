@@ -8,7 +8,7 @@
 /* Dark Background & Modern Font */
 body {
   background-color: #0d0d0d;
-  color: #000;
+  color: #fffff;
   font-family: 'Times New Roman', Times, sans-serif;
   height: 100vh;
   display: flex;
@@ -55,9 +55,9 @@ body {
   padding: 15px 35px;
   font-size: 1rem;
   font-weight: 500;
-  color: #000;
+  color: #fffff;
   background: transparent;
-  border: 2px solid #000;
+  border: 2px solid #fffff;
   border-radius: 50px;
   text-decoration: none;
   position: relative;
@@ -72,7 +72,7 @@ body {
   left: 50%;
   width: 0;
   height: 0;
-  background: #000;
+  background: #fffff;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: width 0.4s ease, height 0.4s ease;
@@ -105,7 +105,7 @@ body {
 }
 
 .social-icon {
-  color: #000;
+  color: #fffff;
   font-size: 2.2rem; /* Bigger icons */
   transition: transform 0.3s ease, color 0.3s ease;
 }
