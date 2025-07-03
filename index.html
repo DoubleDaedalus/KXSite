@@ -13,6 +13,10 @@
     <video autoplay loop muted playsinline id="background-video">
         <source src="static.mp4" type="video/mp4">
     </video>
+    
+    <audio id="hover-sound" preload="auto">
+        <source src="your-hover-sound.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="container">
         <img src="KXLogoAnimWhite.svg" alt="Kill Xtra Logo" class="animated-logo" />
@@ -28,6 +32,46 @@
         <a href="#" aria-label="YouTube" class="social-icon"><i class="fab fa-youtube"></i></a>
         <a href="#" aria-label="X / Twitter" class="social-icon"><i class="fab fa-x-twitter"></i></a>
     </div>
+
+    <script>
+    // Wait for the page to load
+    window.addEventListener('load', () => {
+        // --- Background Audio Code ---
+        const backgroundAudio = document.getElementById('background-audio');
+        const unmuteButton = document.getElementById('unmute-button');
+
+        unmuteButton.addEventListener('click', () => {
+            if (backgroundAudio.muted) {
+                backgroundAudio.muted = false;
+                unmuteButton.textContent = "🔇 Mute";
+                
+                // --- ADD THIS PART TO UNLOCK THE HOVER SOUND ---
+                hoverSound.play(); 
+                hoverSound.pause();
+                // ---------------------------------------------
+
+            } else {
+                backgroundAudio.muted = true;
+                unmuteButton.textContent = "🔊 Unmute";
+            }
+        });
+
+        // --- Hover Button Sound Code ---
+        const enterButton = document.querySelector('.enter-button');
+        const hoverSound = document.getElementById('hover-sound');
+
+        // Play sound when mouse enters the button area
+        enterButton.addEventListener('mouseenter', () => {
+            hoverSound.play();
+        });
+
+        // Stop and reset the sound when mouse leaves
+        enterButton.addEventListener('mouseleave', () => {
+            hoverSound.pause();
+            hoverSound.currentTime = 0;
+        });
+    });
+</script>
 
 </body>
 </html>
