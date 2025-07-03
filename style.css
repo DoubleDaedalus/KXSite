@@ -29,13 +29,14 @@ body {
 
 /* Main Content Container */
 .container {
-    text-align: center;
-    position: relative; /* Needed for z-index to work properly with other elements */
-    z-index: 10;
-
+    /* These three lines are the complete fix */
     display: flex;
     flex-direction: column;
-    align-times: center;
+    align-items: center;
+    
+    /* Keep these original lines */
+    position: relative;
+    z-index: 10;
 }
 
 /* Logo Styling */
