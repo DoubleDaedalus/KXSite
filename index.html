@@ -34,44 +34,35 @@
     </div>
 
     <script>
-    // Wait for the page to load
-    window.addEventListener('load', () => {
-        // --- Background Audio Code ---
-        const backgroundAudio = document.getElementById('background-audio');
-        const unmuteButton = document.getElementById('unmute-button');
-
-        unmuteButton.addEventListener('click', () => {
-            if (backgroundAudio.muted) {
-                backgroundAudio.muted = false;
-                unmuteButton.textContent = "🔇 Mute";
-                
-                // --- ADD THIS PART TO UNLOCK THE HOVER SOUND ---
-                hoverSound.play(); 
+        window.addEventListener('load', () => {
+            const enterButton = document.querySelector('.enter-button');
+            const hoverSound = document.getElementById('hover-sound');
+            let audioUnlocked = false;
+    
+            // Play sound when mouse enters the button area
+            enterButton.addEventListener('mouseenter', () => {
+                // Only play if the audio has been unlocked by a click
+                if (audioUnlocked) {
+                    hoverSound.play();
+                }
+            });
+    
+            // Stop and reset the sound when mouse leaves
+            enterButton.addEventListener('mouseleave', () => {
                 hoverSound.pause();
-                // ---------------------------------------------
-
-            } else {
-                backgroundAudio.muted = true;
-                unmuteButton.textContent = "🔊 Unmute";
-            }
+                hoverSound.currentTime = 0;
+            });
+    
+            // Unlock the audio on the very first click of the enter button
+            enterButton.addEventListener('click', () => {
+                if (!audioUnlocked) {
+                    hoverSound.play();
+                    hoverSound.pause();
+                    audioUnlocked = true;
+                }
+            });
         });
-
-        // --- Hover Button Sound Code ---
-        const enterButton = document.querySelector('.enter-button');
-        const hoverSound = document.getElementById('hover-sound');
-
-        // Play sound when mouse enters the button area
-        enterButton.addEventListener('mouseenter', () => {
-            hoverSound.play();
-        });
-
-        // Stop and reset the sound when mouse leaves
-        enterButton.addEventListener('mouseleave', () => {
-            hoverSound.pause();
-            hoverSound.currentTime = 0;
-        });
-    });
-</script>
+    </script>
 
 </body>
 </html>
